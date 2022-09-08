@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html><head>
+<meta charset="UTF-8">
+<title>IDNA UTS#46 Mocha tests</title>
+<link rel="stylesheet" href="../node_modules/mocha/mocha.css"/>
+<script src="uts46bundle.min.js"></script>
+<style>
+  #convert {
+    padding: 50px;
+  }
+  .err {
+    background-color: red;
+  }
+  .ok {
+    background-color: greenyellow;
+  }
+</style>
+<script>
+function start() {
+  console.log(ispapiIdnconverter)
+  const eL = document.getElementById("convert");
+  if (!ispapiIdnconverter){
+    eL.innerHTML = "<h1 class=\"err\">... Failed loading IDN Converter</h1>";
+    return;
+  }
+  const uts46 = ispapiIdnconverter;
+  const data = {
+    "domain":"cdac.in",
+    "idn":"सीडैक.^रत",
+    "test":"xn--11bx2e6a3b.xn--h2brj9c",
+    "testnew":"abcin",
+  }
+  const test = uts46.toUnicode(data.test);
+  const val = uts46.convert(data.domain);
+  const idn = uts46.convert(data.idn);
+  const test2 = uts46.toAscii(data.testnew, { useStd3ASCII: true });
+  console.log(val)
+  console.log(idn)
+  console.log(test)
+  console.log(test2)
+}
+</script>
+</head>
+<body onload="start()">
+<div id="convert"></div>
+</body>
+</html>
+
